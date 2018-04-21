@@ -7,14 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		922E2FB4208BC3C5008579DC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E2FB3208BC3C5008579DC /* HomeViewController.swift */; };
+		922E2FB6208BC573008579DC /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E2FB5208BC573008579DC /* ScannerViewController.swift */; };
+		922E2FB8208BC6C0008579DC /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E2FB7208BC6C0008579DC /* HistoryViewController.swift */; };
+		922E2FBA208BC859008579DC /* ItemHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E2FB9208BC859008579DC /* ItemHistoryViewController.swift */; };
+		922E2FBC208BC8C2008579DC /* BillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E2FBB208BC8C2008579DC /* BillViewController.swift */; };
+		922E2FBE208BCA8A008579DC /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E2FBD208BCA8A008579DC /* ItemViewController.swift */; };
+		922E2FC0208BCBF0008579DC /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E2FBF208BCBF0008579DC /* SummaryViewController.swift */; };
+		92387F13208BE47B00205074 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92387F12208BE47B00205074 /* Bill.swift */; };
+		92387F15208BF87100205074 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92387F14208BF87100205074 /* Item.swift */; };
 		92A600C0208A876C00AB26E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600BF208A876C00AB26E0 /* AppDelegate.swift */; };
 		92A600C2208A876C00AB26E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600C1208A876C00AB26E0 /* ViewController.swift */; };
 		92A600C5208A876C00AB26E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92A600C3208A876C00AB26E0 /* Main.storyboard */; };
 		92A600C7208A876C00AB26E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92A600C6208A876C00AB26E0 /* Assets.xcassets */; };
 		92A600CA208A876C00AB26E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92A600C8208A876C00AB26E0 /* LaunchScreen.storyboard */; };
+		92A600D9208BBD4200AB26E0 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600D8208BBD4200AB26E0 /* SignUpViewController.swift */; };
+		92A600DB208BBD7C00AB26E0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600DA208BBD7C00AB26E0 /* LoginViewController.swift */; };
+		92A600DD208BBE1400AB26E0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600DC208BBE1400AB26E0 /* User.swift */; };
+		92A600DF208BBE4600AB26E0 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600DE208BBE4600AB26E0 /* Database.swift */; };
+		FB366F1CB640E2D26174C59E /* Pods_SmartScan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 535718FB9E9B40E2F60C30F3 /* Pods_SmartScan.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		535718FB9E9B40E2F60C30F3 /* Pods_SmartScan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartScan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56F0B844BDC33D7F44A1265B /* Pods-SmartScan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartScan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartScan/Pods-SmartScan.debug.xcconfig"; sourceTree = "<group>"; };
+		922E2FB3208BC3C5008579DC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		922E2FB5208BC573008579DC /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		922E2FB7208BC6C0008579DC /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		922E2FB9208BC859008579DC /* ItemHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemHistoryViewController.swift; sourceTree = "<group>"; };
+		922E2FBB208BC8C2008579DC /* BillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillViewController.swift; sourceTree = "<group>"; };
+		922E2FBD208BCA8A008579DC /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
+		922E2FBF208BCBF0008579DC /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		92387F12208BE47B00205074 /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
+		92387F14208BF87100205074 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		92A600BC208A876C00AB26E0 /* SmartScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92A600BF208A876C00AB26E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92A600C1208A876C00AB26E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +47,11 @@
 		92A600C6208A876C00AB26E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92A600C9208A876C00AB26E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92A600CB208A876C00AB26E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92A600D8208BBD4200AB26E0 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		92A600DA208BBD7C00AB26E0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		92A600DC208BBE1400AB26E0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		92A600DE208BBE4600AB26E0 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		F0D937D8E791A6CCD1F1A11F /* Pods-SmartScan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartScan.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartScan/Pods-SmartScan.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB366F1CB640E2D26174C59E /* Pods_SmartScan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,8 +69,11 @@
 		92A600B3208A876C00AB26E0 = {
 			isa = PBXGroup;
 			children = (
+				92A600C6208A876C00AB26E0 /* Assets.xcassets */,
 				92A600BE208A876C00AB26E0 /* SmartScan */,
 				92A600BD208A876C00AB26E0 /* Products */,
+				ED2097AD0CEE9377F2A3041A /* Pods */,
+				B82A737FBD6609A9DF7E554C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +88,51 @@
 		92A600BE208A876C00AB26E0 /* SmartScan */ = {
 			isa = PBXGroup;
 			children = (
-				92A600BF208A876C00AB26E0 /* AppDelegate.swift */,
-				92A600C1208A876C00AB26E0 /* ViewController.swift */,
-				92A600C3208A876C00AB26E0 /* Main.storyboard */,
-				92A600C6208A876C00AB26E0 /* Assets.xcassets */,
+				92387F12208BE47B00205074 /* Bill.swift */,
+				92387F14208BF87100205074 /* Item.swift */,
+				92A600DC208BBE1400AB26E0 /* User.swift */,
+				92A600DE208BBE4600AB26E0 /* Database.swift */,
+				92A600D1208A8A7900AB26E0 /* ViewController */,
 				92A600C8208A876C00AB26E0 /* LaunchScreen.storyboard */,
 				92A600CB208A876C00AB26E0 /* Info.plist */,
 			);
 			path = SmartScan;
+			sourceTree = "<group>";
+		};
+		92A600D1208A8A7900AB26E0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				92A600C1208A876C00AB26E0 /* ViewController.swift */,
+				92A600DA208BBD7C00AB26E0 /* LoginViewController.swift */,
+				92A600D8208BBD4200AB26E0 /* SignUpViewController.swift */,
+				922E2FB3208BC3C5008579DC /* HomeViewController.swift */,
+				92A600BF208A876C00AB26E0 /* AppDelegate.swift */,
+				92A600C3208A876C00AB26E0 /* Main.storyboard */,
+				922E2FBF208BCBF0008579DC /* SummaryViewController.swift */,
+				922E2FBD208BCA8A008579DC /* ItemViewController.swift */,
+				922E2FBB208BC8C2008579DC /* BillViewController.swift */,
+				922E2FB9208BC859008579DC /* ItemHistoryViewController.swift */,
+				922E2FB7208BC6C0008579DC /* HistoryViewController.swift */,
+				922E2FB5208BC573008579DC /* ScannerViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B82A737FBD6609A9DF7E554C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				535718FB9E9B40E2F60C30F3 /* Pods_SmartScan.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ED2097AD0CEE9377F2A3041A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				56F0B844BDC33D7F44A1265B /* Pods-SmartScan.debug.xcconfig */,
+				F0D937D8E791A6CCD1F1A11F /* Pods-SmartScan.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +142,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92A600CE208A876C00AB26E0 /* Build configuration list for PBXNativeTarget "SmartScan" */;
 			buildPhases = (
+				D0F374AD312E0A8B59698BB7 /* [CP] Check Pods Manifest.lock */,
 				92A600B8208A876C00AB26E0 /* Sources */,
 				92A600B9208A876C00AB26E0 /* Frameworks */,
 				92A600BA208A876C00AB26E0 /* Resources */,
+				F5FD6CECA1D20EC910922D62 /* [CP] Embed Pods Frameworks */,
+				CD1739E9D82625B9845CF157 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,13 +205,80 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CD1739E9D82625B9845CF157 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartScan/Pods-SmartScan-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D0F374AD312E0A8B59698BB7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SmartScan-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5FD6CECA1D20EC910922D62 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SmartScan/Pods-SmartScan-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/TesseractOCRiOS/TesseractOCR.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCR.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartScan/Pods-SmartScan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		92A600B8208A876C00AB26E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92A600DF208BBE4600AB26E0 /* Database.swift in Sources */,
+				922E2FC0208BCBF0008579DC /* SummaryViewController.swift in Sources */,
+				92A600DB208BBD7C00AB26E0 /* LoginViewController.swift in Sources */,
 				92A600C2208A876C00AB26E0 /* ViewController.swift in Sources */,
+				92387F13208BE47B00205074 /* Bill.swift in Sources */,
+				92A600D9208BBD4200AB26E0 /* SignUpViewController.swift in Sources */,
+				92A600DD208BBE1400AB26E0 /* User.swift in Sources */,
+				922E2FBE208BCA8A008579DC /* ItemViewController.swift in Sources */,
+				922E2FB4208BC3C5008579DC /* HomeViewController.swift in Sources */,
+				922E2FBA208BC859008579DC /* ItemHistoryViewController.swift in Sources */,
+				92387F15208BF87100205074 /* Item.swift in Sources */,
+				922E2FBC208BC8C2008579DC /* BillViewController.swift in Sources */,
+				922E2FB8208BC6C0008579DC /* HistoryViewController.swift in Sources */,
 				92A600C0208A876C00AB26E0 /* AppDelegate.swift in Sources */,
+				922E2FB6208BC573008579DC /* ScannerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,9 +413,11 @@
 		};
 		92A600CF208A876C00AB26E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56F0B844BDC33D7F44A1265B /* Pods-SmartScan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SK52832VH5;
 				INFOPLIST_FILE = SmartScan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CIS195.SmartScan;
@@ -286,9 +429,11 @@
 		};
 		92A600D0208A876C00AB26E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0D937D8E791A6CCD1F1A11F /* Pods-SmartScan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SK52832VH5;
 				INFOPLIST_FILE = SmartScan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CIS195.SmartScan;
