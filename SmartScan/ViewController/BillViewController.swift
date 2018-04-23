@@ -7,29 +7,45 @@
 //
 
 import UIKit
+import TesseractOCR
 
-class BillViewController: UIViewController {
-
+class BillViewController: UIViewController, G8TesseractDelegate, UITableViewDataSource, UITableViewDelegate {
+    
+    var photo: UIImageView?
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        let tesseract:G8Tesseract = G8Tesseract(language:"eng+ita")
+        //tesseract.language = "eng+ita"
+        tesseract.delegate = self
+        tesseract.image = photo?.image
+        tesseract.recognize()
+        
+        print(tesseract.recognizedText)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func progressImageRecognition(for tesseract: G8Tesseract!) {
+        print("Recognition progress \(tesseract.progress)%")
     }
-    */
+    
+    func shouldCancelImageRecognitionForTesseract(tesseract: G8Tesseract!) -> Bool {
+        return false // return true if you need to interrupt tesseract before it finishes
+    }
+
+    //table
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "homeCell", for: indexPath)
+        return cell
+    }
+    
+    // MARK: - Navigation
 
 }

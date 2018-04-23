@@ -24,7 +24,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if let name = username {
+            hi.text = "Hi " + name + "!"
+        }
         for currentUser in database.userList {
             if username == currentUser.loginName {
                 user = currentUser
@@ -48,9 +50,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         return cell
     }
     
-    //Scanner
+    //Camera
     @IBAction func didTapScanner(_ sender: Any) {
-        let alertController = UIAlertController(title: "Media Types", message: "Select the media source for your profile picture", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Media Types", message: "Select the media source for your image", preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
             _ in

@@ -45,9 +45,10 @@ class LoginViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "loginSegue" {
-            if let destination = segue.destination as? HomeViewController {
-                destination.username = loginName.text!
-                destination.hi.text = "Hi, " + loginName.text! + "!"
+            if let destination = segue.destination as? UINavigationController {
+                if let targetController = destination.topViewController as? HomeViewController {
+                    targetController.username = loginName.text!
+                }
             }
         }
     }

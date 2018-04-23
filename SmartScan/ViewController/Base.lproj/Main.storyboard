@@ -195,7 +195,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNx-BR-qvF">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hi!" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNx-BR-qvF">
                                 <rect key="frame" x="21" y="84" width="338" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Baskerville-Bold" family="Baskerville" pointSize="30"/>
@@ -313,7 +313,7 @@
                                 <fontDescription key="fontDescription" name="DiwanMishafi" family="Mishafi" pointSize="27"/>
                                 <state key="normal" title="Splitters"/>
                                 <connections>
-                                    <segue destination="Azq-aP-Az7" kind="show" id="eQd-Hy-p2d"/>
+                                    <segue destination="Azq-aP-Az7" kind="show" identifier="itemHistorySegue" id="eQd-Hy-p2d"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -391,6 +391,10 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HGQ-De-dS8">
                                 <rect key="frame" x="34" y="110" width="307" height="446"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="SAK-NU-793" appends="YES" id="bCY-4l-CJM"/>
+                                </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tuz-N7-DOL">
                                 <rect key="frame" x="125" y="583" width="124" height="52"/>
@@ -398,7 +402,7 @@
                                 <fontDescription key="fontDescription" name="DiwanMishafi" family="Mishafi" pointSize="27"/>
                                 <state key="normal" title="OK "/>
                                 <connections>
-                                    <segue destination="Emz-oU-v3j" kind="show" id="kfD-Ug-Gj8"/>
+                                    <segue destination="Emz-oU-v3j" kind="show" identifier="billSegue" id="kfD-Ug-Gj8"/>
                                 </connections>
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="50J-pI-VAk">
@@ -418,6 +422,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="02c-O0-3km" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Yeh-UT-re6">
+                    <connections>
+                        <action selector="didTapImage:" destination="6WM-FI-oX0" id="DE0-7C-ndL"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="SAK-NU-793"/>
             </objects>
             <point key="canvasLocation" x="3911" y="611"/>
         </scene>
@@ -429,18 +439,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yMi-oq-wVv">
-                                <rect key="frame" x="140" y="615" width="124" height="52"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yMi-oq-wVv">
+                                <rect key="frame" x="155" y="615" width="65" height="52"/>
                                 <fontDescription key="fontDescription" name="DiwanMishafi" family="Mishafi" pointSize="27"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
-                                    <segue destination="Nhq-Nq-LMR" kind="show" id="IG5-PR-y69"/>
+                                    <segue destination="Nhq-Nq-LMR" kind="show" identifier="summarySegue" id="IG5-PR-y69"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pyj-fp-3ja">
-                                <rect key="frame" x="26" y="157" width="333" height="450"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Include self in all items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gos-K3-mCR">
+                                <rect key="frame" x="33" y="97" width="231" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UJ1-0t-wAe">
+                                <rect key="frame" x="302" y="92" width="51" height="31"/>
+                            </switch>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pyj-fp-3ja">
+                                <rect key="frame" x="21" y="157" width="333" height="450"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="billCell" textLabel="8j2-I2-sJ0" detailTextLabel="nTp-BZ-pQo" style="IBUITableViewCellStyleValue1" id="aKQ-n6-mcs">
@@ -467,26 +485,28 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="EQh-9H-KoJ" kind="show" id="Txh-N7-Foy"/>
+                                            <segue destination="EQh-9H-KoJ" kind="show" identifier="itemSegue" id="Txh-N7-Foy"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Include self in all items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gos-K3-mCR">
-                                <rect key="frame" x="33" y="97" width="231" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UJ1-0t-wAe">
-                                <rect key="frame" x="304" y="92" width="49" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yMi-oq-wVv" firstAttribute="bottom" secondItem="gQJ-qH-CeL" secondAttribute="bottom" id="6r4-0P-dhe"/>
+                            <constraint firstItem="gQJ-qH-CeL" firstAttribute="trailing" secondItem="pyj-fp-3ja" secondAttribute="trailing" constant="21" id="EcY-Qt-EhB"/>
+                            <constraint firstItem="pyj-fp-3ja" firstAttribute="top" secondItem="UJ1-0t-wAe" secondAttribute="bottom" constant="34" id="J5i-Ug-AY9"/>
+                            <constraint firstItem="UJ1-0t-wAe" firstAttribute="top" secondItem="gQJ-qH-CeL" secondAttribute="top" constant="28" id="MEE-ye-OW5"/>
+                            <constraint firstItem="pyj-fp-3ja" firstAttribute="leading" secondItem="gQJ-qH-CeL" secondAttribute="leading" constant="21" id="RIr-yl-Q2W"/>
+                            <constraint firstItem="gQJ-qH-CeL" firstAttribute="trailing" secondItem="UJ1-0t-wAe" secondAttribute="trailing" constant="24" id="e4i-og-uaH"/>
+                            <constraint firstItem="yMi-oq-wVv" firstAttribute="top" secondItem="pyj-fp-3ja" secondAttribute="bottom" constant="8" id="ohP-f9-fBG"/>
+                            <constraint firstItem="yMi-oq-wVv" firstAttribute="centerX" secondItem="niB-uL-LoZ" secondAttribute="centerX" id="q23-uT-x94"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gQJ-qH-CeL"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="pyj-fp-3ja" id="tHa-AT-Bel"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WUH-jj-uoa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -647,10 +667,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JXO-xV-z1s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1913" y="110"/>
+            <point key="canvasLocation" x="1910" y="82"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CO0-eA-DbB"/>
+        <segue reference="UCX-Kb-Zl9"/>
     </inferredMetricsTieBreakers>
 </document>
