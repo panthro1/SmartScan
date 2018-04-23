@@ -9,6 +9,9 @@
 import UIKit
 
 class ItemHistoryViewController: UIViewController {
+    
+    var item: String?
+    var price: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()

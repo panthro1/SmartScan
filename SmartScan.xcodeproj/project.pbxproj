@@ -16,6 +16,9 @@
 		922E2FC0208BCBF0008579DC /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E2FBF208BCBF0008579DC /* SummaryViewController.swift */; };
 		92387F13208BE47B00205074 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92387F12208BE47B00205074 /* Bill.swift */; };
 		92387F15208BF87100205074 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92387F14208BF87100205074 /* Item.swift */; };
+		9262EE54208D9109005618F5 /* InnerDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9262EE53208D9109005618F5 /* InnerDatabase.swift */; };
+		9262EE56208D939F005618F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9262EE55208D939F005618F5 /* GoogleService-Info.plist */; };
+		9262EE58208D9A98005618F5 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9262EE57208D9A98005618F5 /* NetworkingService.swift */; };
 		92A600C0208A876C00AB26E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600BF208A876C00AB26E0 /* AppDelegate.swift */; };
 		92A600C2208A876C00AB26E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600C1208A876C00AB26E0 /* ViewController.swift */; };
 		92A600C5208A876C00AB26E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92A600C3208A876C00AB26E0 /* Main.storyboard */; };
@@ -24,7 +27,9 @@
 		92A600D9208BBD4200AB26E0 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600D8208BBD4200AB26E0 /* SignUpViewController.swift */; };
 		92A600DB208BBD7C00AB26E0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600DA208BBD7C00AB26E0 /* LoginViewController.swift */; };
 		92A600DD208BBE1400AB26E0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600DC208BBE1400AB26E0 /* User.swift */; };
-		92A600DF208BBE4600AB26E0 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A600DE208BBE4600AB26E0 /* Database.swift */; };
+		92FC6DE6208E066A0037CC3A /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 92FC6DE5208E066A0037CC3A /* tessdata */; };
+		92FC6DE8208E10D80037CC3A /* InputError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC6DE7208E10D80037CC3A /* InputError.swift */; };
+		92FC6DEA208E156A0037CC3A /* AddMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC6DE9208E156A0037CC3A /* AddMemberViewController.swift */; };
 		FB366F1CB640E2D26174C59E /* Pods_SmartScan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 535718FB9E9B40E2F60C30F3 /* Pods_SmartScan.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +45,9 @@
 		922E2FBF208BCBF0008579DC /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		92387F12208BE47B00205074 /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		92387F14208BF87100205074 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		9262EE53208D9109005618F5 /* InnerDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InnerDatabase.swift; path = /Users/carin/Desktop/SmartScan/SmartScan/InnerDatabase.swift; sourceTree = "<absolute>"; };
+		9262EE55208D939F005618F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9262EE57208D9A98005618F5 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		92A600BC208A876C00AB26E0 /* SmartScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92A600BF208A876C00AB26E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92A600C1208A876C00AB26E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,7 +58,9 @@
 		92A600D8208BBD4200AB26E0 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		92A600DA208BBD7C00AB26E0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		92A600DC208BBE1400AB26E0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		92A600DE208BBE4600AB26E0 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		92FC6DE5208E066A0037CC3A /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		92FC6DE7208E10D80037CC3A /* InputError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputError.swift; sourceTree = "<group>"; };
+		92FC6DE9208E156A0037CC3A /* AddMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemberViewController.swift; sourceTree = "<group>"; };
 		F0D937D8E791A6CCD1F1A11F /* Pods-SmartScan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartScan.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartScan/Pods-SmartScan.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,11 +100,15 @@
 			children = (
 				92387F12208BE47B00205074 /* Bill.swift */,
 				92387F14208BF87100205074 /* Item.swift */,
+				92FC6DE7208E10D80037CC3A /* InputError.swift */,
 				92A600DC208BBE1400AB26E0 /* User.swift */,
-				92A600DE208BBE4600AB26E0 /* Database.swift */,
+				9262EE53208D9109005618F5 /* InnerDatabase.swift */,
+				9262EE57208D9A98005618F5 /* NetworkingService.swift */,
 				92A600D1208A8A7900AB26E0 /* ViewController */,
 				92A600C8208A876C00AB26E0 /* LaunchScreen.storyboard */,
 				92A600CB208A876C00AB26E0 /* Info.plist */,
+				92FC6DE5208E066A0037CC3A /* tessdata */,
+				9262EE55208D939F005618F5 /* GoogleService-Info.plist */,
 			);
 			path = SmartScan;
 			sourceTree = "<group>";
@@ -108,6 +122,7 @@
 				922E2FB3208BC3C5008579DC /* HomeViewController.swift */,
 				92A600BF208A876C00AB26E0 /* AppDelegate.swift */,
 				92A600C3208A876C00AB26E0 /* Main.storyboard */,
+				92FC6DE9208E156A0037CC3A /* AddMemberViewController.swift */,
 				922E2FBF208BCBF0008579DC /* SummaryViewController.swift */,
 				922E2FBD208BCA8A008579DC /* ItemViewController.swift */,
 				922E2FBB208BC8C2008579DC /* BillViewController.swift */,
@@ -198,6 +213,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				92A600CA208A876C00AB26E0 /* LaunchScreen.storyboard in Resources */,
+				9262EE56208D939F005618F5 /* GoogleService-Info.plist in Resources */,
+				92FC6DE6208E066A0037CC3A /* tessdata in Resources */,
 				92A600C7208A876C00AB26E0 /* Assets.xcassets in Resources */,
 				92A600C5208A876C00AB26E0 /* Main.storyboard in Resources */,
 			);
@@ -246,11 +263,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SmartScan/Pods-SmartScan-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/TesseractOCRiOS/TesseractOCR.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCR.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -264,7 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92A600DF208BBE4600AB26E0 /* Database.swift in Sources */,
+				92FC6DE8208E10D80037CC3A /* InputError.swift in Sources */,
 				922E2FC0208BCBF0008579DC /* SummaryViewController.swift in Sources */,
 				92A600DB208BBD7C00AB26E0 /* LoginViewController.swift in Sources */,
 				92A600C2208A876C00AB26E0 /* ViewController.swift in Sources */,
@@ -274,7 +299,10 @@
 				922E2FBE208BCA8A008579DC /* ItemViewController.swift in Sources */,
 				922E2FB4208BC3C5008579DC /* HomeViewController.swift in Sources */,
 				922E2FBA208BC859008579DC /* ItemHistoryViewController.swift in Sources */,
+				9262EE54208D9109005618F5 /* InnerDatabase.swift in Sources */,
 				92387F15208BF87100205074 /* Item.swift in Sources */,
+				92FC6DEA208E156A0037CC3A /* AddMemberViewController.swift in Sources */,
+				9262EE58208D9A98005618F5 /* NetworkingService.swift in Sources */,
 				922E2FBC208BC8C2008579DC /* BillViewController.swift in Sources */,
 				922E2FB8208BC6C0008579DC /* HistoryViewController.swift in Sources */,
 				92A600C0208A876C00AB26E0 /* AppDelegate.swift in Sources */,

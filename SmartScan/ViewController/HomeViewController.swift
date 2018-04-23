@@ -7,35 +7,36 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource  {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     var username: String?
     @IBOutlet weak var hi: UILabel!
-    
-    var photo: UIImageView!
-    let picker = UIImagePickerController()
     @IBOutlet weak var tableView: UITableView!
     
-    let database = Database()
-    var user = User()
+    let database = InnerDatabase()
+    var user: User?
     var bills: [Bill] = []
     var bill: Bill?
     
+    let ref = Database.database().reference().child("users")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let name = username {
-            hi.text = "Hi " + name + "!"
-        }
-        for currentUser in database.userList {
-            if username == currentUser.loginName {
-                user = currentUser
-                bills = currentUser.bills
-            }
-        }
         tableView.dataSource = self
         tableView.delegate = self
-        picker.delegate = self
+        
+        let userID = Auth.auth().currentUser?.uid
+        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let username = value?["loginName"] as? String ?? ""
+            self.hi.text = "Hi " + username + "!"
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     
     //Table
@@ -50,81 +51,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         return cell
     }
     
-    //Camera
     @IBAction func didTapScanner(_ sender: Any) {
-        let alertController = UIAlertController(title: "Media Types", message: "Select the media source for your image", preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
-            _ in
-        }
-        
-        let libraryAction = UIAlertAction(title: "Photo Library", style: .default) {
-            _ in
-            self.library()
-        }
-        
-        let photoAlbumAction = UIAlertAction(title: "Saved Photo Album", style: .default) {
-            _ in
-            self.library()
-        }
-        
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) {
-            _ in
-            self.camera()
-        }
-        
-        alertController.addAction(libraryAction)
-        alertController.addAction(photoAlbumAction)
-        alertController.addAction(cameraAction)
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func camera() {
-        if (UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {
-            picker.sourceType = UIImagePickerControllerSourceType.camera
-            picker.allowsEditing = true
-            self.present(picker, animated: true, completion: nil)
-        }
-        else {
-            let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func library() {
-        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        picker.allowsEditing = true
-        self.present(picker, animated: true, completion: nil)
-    }
-    
-    func album() {
-        picker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum
-        picker.allowsEditing = true
-        self.present(picker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage{
-            self.photo.image = chosenImage
-        }
-        picker.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "scannerSegue" {
-            if let destination = segue.destination as? ScannerViewController {
-                destination.photo.image = photo.image
-            }
-        }
-        
         if segue.identifier == "historySegue" {
             if let destination = segue.destination as? HistoryViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {

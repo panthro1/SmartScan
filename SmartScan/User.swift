@@ -10,13 +10,11 @@ import Foundation
 import UIKit
 
 class User: NSObject {
-    var loginName: String? = ""
-    var password: String? = ""
+    var loginName: NSString? = ""
+    var password: NSString? = ""
     var photo: UIImage = #imageLiteral(resourceName: "blank ")
     
-    var bills: [Bill] = []
-
-    func addBill(bill: Bill) {
-        bills.append(bill)
+    init(loginName: NSString) {
+        self.loginName = loginName
     }
 }

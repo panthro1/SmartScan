@@ -9,7 +9,8 @@
 import Foundation
 
 class Bill: NSObject {
-    var date: String?
-    var total: String?
-    var items: [Item] = []
+    var date : String?
+    var total : String?
+    var item : [Item] = []
+    
 }

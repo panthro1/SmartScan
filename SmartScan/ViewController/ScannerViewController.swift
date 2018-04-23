@@ -10,11 +10,14 @@ import UIKit
 
 class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    var username: String?
+    
     @IBOutlet weak var photo: UIImageView!
     let picker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        photo.image = #imageLiteral(resourceName: "receipt2")
         picker.delegate = self
     }
     
@@ -90,6 +93,7 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
         if segue.identifier == "billSegue" {
             if let destination = segue.destination as? BillViewController {
                 destination.photo?.image = photo.image
+                destination.username = username
             }
         }
     }

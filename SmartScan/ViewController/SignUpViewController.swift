@@ -7,33 +7,44 @@
 //
 
 import UIKit
+import Foundation
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
 class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var loginName: UITextField!
     @IBOutlet weak var password: UITextField!
-    var collision = false
+    @IBOutlet weak var email: UITextField!
+    
+    private let refUser = Database.database().reference(withPath: "Users")
     
     var user: User?
-    let model = Database()
+    let model = InnerDatabase()
     let picker = UIImagePickerController()
-
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         photo.image = #imageLiteral(resourceName: "blank ")
         picker.delegate = self
         self.photo.layer.cornerRadius = self.photo.frame.size.width / 2
         self.photo.clipsToBounds = true
     }
-
-    func nameCollision() {
-        for user in model.userList {
-            if (loginName!.text! == user.loginName) {
-                collision = true
+    
+    @IBAction func didTapSignUp(_ sender: Any) {
+        Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (user, error) in
+            if let error = error {
+                print(error.localizedDescription)
             }
-            else {
-                collision = false
+            else if let user = user {
+                print("Sign Up Successfully. \(user.uid)")
+                let newUser = User(loginName: (self.loginName.text!) as NSString)
+                let newUserArray = ["loginName": newUser.loginName as! NSString]
+                let userRef = self.refUser.child((Auth.auth().currentUser?.uid)!)
+                userRef.setValue(newUserArray)
             }
         }
     }
@@ -104,21 +115,21 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         picker.dismiss(animated: true, completion: nil)
     }
-
     
     // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "signUpSegue" {
-            if let destination = segue.destination as? UINavigationController {
-                if let targetController = destination.topViewController as? HomeViewController {
-                    targetController.username = loginName.text!
-                }
-            }
-        }
-    }
-    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "signUpSegue" {
+            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+            let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+            let correctFormat = emailTest.evaluate(with: email!.text!)
+            
+            if (!correctFormat) {
+                let alert  = UIAlertController(title: "Warning", message: "Incorrect email format", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return false
+            }
+            
             if (loginName!.text!.isEmpty) {
                 let alert  = UIAlertController(title: "Warning", message: "Login Name is empty", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -133,22 +144,11 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                 return false
             }
             
-            nameCollision()
-            
-            if (collision == true) {
-                let alert  = UIAlertController(title: "Warning", message: "Login Name already been used", preferredStyle: .alert)
+            if (password!.text!.count < 6) {
+                let alert  = UIAlertController(title: "Warning", message: "Password less than 6 characters", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return false
-            }
-            
-            else {
-                self.user = User()
-                user?.loginName = loginName.text!
-                user?.password = password.text!
-                user?.photo = photo.image!
-                model.addUser(user: user!)
-                return true
             }
         }
         return true

@@ -5,6 +5,12 @@ target 'SmartScan' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
+  # Pods for Firebase backend
+  pod ‘Firebase/Core’
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
+  pod ‘Firebase/Storage’
+
   # Pods for SmartScan
   pod 'TesseractOCRiOS', '4.0.0'
 
