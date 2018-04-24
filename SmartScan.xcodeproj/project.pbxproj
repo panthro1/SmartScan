@@ -45,7 +45,7 @@
 		922E2FBF208BCBF0008579DC /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		92387F12208BE47B00205074 /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		92387F14208BF87100205074 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		9262EE53208D9109005618F5 /* InnerDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InnerDatabase.swift; path = /Users/carin/Desktop/SmartScan/SmartScan/InnerDatabase.swift; sourceTree = "<absolute>"; };
+		9262EE53208D9109005618F5 /* InnerDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InnerDatabase.swift; path = "/Users/carin/Desktop/SmartScan/SmartScan/New Group/InnerDatabase.swift"; sourceTree = "<absolute>"; };
 		9262EE55208D939F005618F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9262EE57208D9A98005618F5 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		92A600BC208A876C00AB26E0 /* SmartScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,12 +98,7 @@
 		92A600BE208A876C00AB26E0 /* SmartScan */ = {
 			isa = PBXGroup;
 			children = (
-				92387F12208BE47B00205074 /* Bill.swift */,
-				92387F14208BF87100205074 /* Item.swift */,
-				92FC6DE7208E10D80037CC3A /* InputError.swift */,
-				92A600DC208BBE1400AB26E0 /* User.swift */,
-				9262EE53208D9109005618F5 /* InnerDatabase.swift */,
-				9262EE57208D9A98005618F5 /* NetworkingService.swift */,
+				92E7F096208F8224005AF62E /* New Group */,
 				92A600D1208A8A7900AB26E0 /* ViewController */,
 				92A600C8208A876C00AB26E0 /* LaunchScreen.storyboard */,
 				92A600CB208A876C00AB26E0 /* Info.plist */,
@@ -131,6 +126,19 @@
 				922E2FB5208BC573008579DC /* ScannerViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		92E7F096208F8224005AF62E /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				92387F12208BE47B00205074 /* Bill.swift */,
+				92387F14208BF87100205074 /* Item.swift */,
+				92A600DC208BBE1400AB26E0 /* User.swift */,
+				9262EE53208D9109005618F5 /* InnerDatabase.swift */,
+				9262EE57208D9A98005618F5 /* NetworkingService.swift */,
+				92FC6DE7208E10D80037CC3A /* InputError.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		B82A737FBD6609A9DF7E554C /* Frameworks */ = {

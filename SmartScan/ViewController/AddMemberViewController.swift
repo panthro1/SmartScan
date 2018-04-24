@@ -12,20 +12,21 @@ import FirebaseAuth
 
 class AddMemberViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var model : InnerDatabase?
+    var model = InnerDatabase()
     var bill = Bill()
     var currentItem : Item?
-    
+    var switchStatus: Bool!
+
     @IBOutlet weak var tableView: UITableView!
     
     //table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model!.userList.count
+        return model.userList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath)
-        cell.textLabel?.text = model?.userList[indexPath.row].loginName! as! String
+        cell.textLabel?.text = model.userList[indexPath.row].loginName! as! String
         return cell
     }
     
@@ -41,15 +42,32 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
         if segue.identifier == "backToItem" {
             if let destination = segue.destination as? ItemViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    let member = User(loginName: model?.userList[indexPath.row].loginName! as! NSString)
+                    let member = User(loginName: model.userList[indexPath.row].loginName! as! NSString)
+                    var alreadyAdded = false
                     for each in bill.item {
-                        if (each.name == currentItem?.name) {
-                            each.member.append(member)
+                        if each.name == currentItem?.name {
+                            for people in (currentItem?.member)! {
+                                if people.loginName == member.loginName {
+                                    alreadyAdded = true
+                                    let alert  = UIAlertController(title: "Warning", message: "Already added this person", preferredStyle: .alert)
+                                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                                    self.present(alert, animated: true, completion: nil)
+                                }
+                            }
+                            if (!alreadyAdded) {
+                                each.member.append(member)
+                                for each in model.userList {
+                                    if each.loginName == member.loginName {
+                                        each.item.append(currentItem!)
+                                    }
+                                }
+                            }
                         }
                     }
                     destination.model = model
                     destination.currentItem = currentItem
                     destination.bill = bill
+                    destination.switchStatus = switchStatus
                 }
             }
         }

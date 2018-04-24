@@ -41,7 +41,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
             else if let user = user {
                 print("Sign Up Successfully. \(user.uid)")
-                let newUser = User(loginName: (self.loginName.text!) as NSString)
+                let newUser = User(loginName: (self.loginName.text!.capitalized) as NSString)
                 let newUserArray = ["loginName": newUser.loginName as! NSString]
                 let userRef = self.refUser.child((Auth.auth().currentUser?.uid)!)
                 userRef.setValue(newUserArray)
@@ -129,6 +129,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                 self.present(alert, animated: true, completion: nil)
                 return false
             }
+            
             
             if (loginName!.text!.isEmpty) {
                 let alert  = UIAlertController(title: "Warning", message: "Login Name is empty", preferredStyle: .alert)

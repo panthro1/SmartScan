@@ -10,5 +10,8 @@ import Foundation
 class InnerDatabase: NSObject {
     var userList: [User] = []
     
+    func insertUser(user: User) {
+        userList.append(user)
+    }
 }
 

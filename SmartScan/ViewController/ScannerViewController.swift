@@ -36,14 +36,7 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
             print(tesseract.recognizedText)
         }
         
-        let regex = textView.text.regex()
-        print(regex)
-        let regex2 = textView.text.regex2()
-        print(regex2)
-        let regex3 = textView.text.regex3()
-        print(regex3)
-        
-        results = results + regex + regex2 + regex3
+        let results = textView.text.regex()
         print(results)
         
         for item in results {
@@ -150,39 +143,7 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
 extension String {
     func regex() -> [String]
     {
-        let pat = "([^\\d\\W]?)+[ ]+([^\\d\\W]?)+[ ]\\w+[ ]\\d+\\‘\\d\\d"
-        
-        do {
-            let string = self as NSString
-            let regex = try NSRegularExpression(pattern: pat, options: .caseInsensitive)
-            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
-                string.substring(with: $0.range).replacingOccurrences(of: "‘", with: ".").lowercased()
-            }
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-            return[]
-        }
-    }
-    
-    func regex2() -> [String]
-    {
-        let pat = "([^\\d\\W]?)+[ ]\\w+[ ]\\d+\\,\\d\\d"
-        
-        do {
-            let string = self as NSString
-            let regex = try NSRegularExpression(pattern: pat, options: .caseInsensitive)
-            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
-                string.substring(with: $0.range).replacingOccurrences(of: ",", with: ".").lowercased()
-            }
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-            return[]
-        }
-    }
-    
-    func regex3() -> [String]
-    {
-        let pat = "([^\\d\\W]?)+[ ]\\w+[ ]\\d+\\.\\d\\d"
+        let pat = "([^\\d\\W]?)+[ ]\\w+[ ]\\d+(\\.|,|‘)\\d\\d"
         
         
         do {

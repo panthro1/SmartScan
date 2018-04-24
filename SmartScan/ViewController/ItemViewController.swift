@@ -14,14 +14,17 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     @IBOutlet weak var item: UILabel!
     @IBOutlet weak var priceDisplay: UILabel!
-    var model : InnerDatabase?
+    var model = InnerDatabase()
     var currentItem: Item?
     var bill: Bill?
+    var switchStatus: Bool!
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(String(describing: model.userList.count))
+
         tableView.delegate = self
         tableView.dataSource = self
         item.text = currentItem?.name
@@ -48,13 +51,28 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if let destination = segue.destination as? AddMemberViewController {
                 destination.currentItem = currentItem
                 destination.bill = bill!
-                destination.model = model!
+                destination.model = model
+                destination.switchStatus = switchStatus
             }
         }
         if segue.identifier == "backToBill" {
             if let destination = segue.destination as? BillViewController {
+                for each in (bill?.item)! {
+                    print(each.name!)
+                    print(each.price!)
+                    print(each.member)
+                }
+                for each in model.userList {
+                    print(each.item)
+                }
                 destination.bill = bill
                 destination.model = model
+//                if (switchStatus) {
+//                    destination.mySwitch.isOn = true;
+//                }
+//                else {
+//                    destination.mySwitch.isOn = false
+//                }
             }
         }
     }
