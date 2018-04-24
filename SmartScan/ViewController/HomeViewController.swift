@@ -56,8 +56,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "homeCell", for: indexPath)
-        cell.textLabel?.text = bills[indexPath.row].date
-        cell.detailTextLabel?.text = bills[indexPath.row].total
+        //cell.textLabel?.text = bills[indexPath.row]
+        //cell.detailTextLabel?.text = bills[indexPath.row].total
         return cell
     }
     

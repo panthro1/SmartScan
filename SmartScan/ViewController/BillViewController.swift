@@ -18,6 +18,7 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
     var prices : [String] = []
     var itemName : [String] = []
     
+    
     let model = InnerDatabase()
     var username : String?
         
@@ -25,21 +26,6 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        getUsers()
-    }
-
-    func getUsers() {
-        Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
-            print(snapshot)
-
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-
-                let user = User(loginName: (dictionary["name"] as? NSString)!)
-                self.model.addUser(user: user)
-                print(user)
-            }
-
-        }, withCancel: nil)
     }
     
     //table

@@ -9,6 +9,6 @@
 import Foundation
 
 class Item: NSObject {
-    var price: String?
+    var member: [String] = []
     
 }

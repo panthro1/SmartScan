@@ -432,7 +432,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VoH-VP-9k6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6193" y="58"/>
+            <point key="canvasLocation" x="6271" y="65"/>
         </scene>
         <!--Add Member View Controller-->
         <scene sceneID="Rzs-4U-YzY">
@@ -463,6 +463,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="zkb-wL-M9Z" kind="unwind" identifier="unwindToItem" unwindAction="unwindToItemWithSegue:" id="DNX-b5-Fzo"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -475,6 +478,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gCK-KF-K7P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="zkb-wL-M9Z" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="7124" y="367.46626686656674"/>
         </scene>

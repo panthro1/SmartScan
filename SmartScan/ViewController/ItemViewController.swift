@@ -16,7 +16,8 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var priceDisplay: UILabel!
     var itemName: String?
     var price: String?
-    var usersList: [String] = []
+    let model = InnerDatabase()
+    var members: [User] = []
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,17 +27,20 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.dataSource = self
         item.text = itemName!
         priceDisplay.text = price!
-
+        print("member count = " + String(members.count))
     }
+    
+
+    @IBAction func unwindToItem(segue: UIStoryboardSegue) {}
     
     //table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return usersList.count
+        return model.userList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-        cell.textLabel?.text = usersList[indexPath.row] as String
+        cell.textLabel?.text = model.userList[indexPath.row].loginName! as String
         return cell
     }
 
