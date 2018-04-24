@@ -7,18 +7,55 @@
 //
 
 import UIKit
+import TesseractOCR
+import FirebaseAuth
 
-class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate, G8TesseractDelegate {
 
     var username: String?
     
+    @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var photo: UIImageView!
     let picker = UIImagePickerController()
+    
+    var results : [String] = []
+    var prices : [String] = []
+    var itemName : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         photo.image = #imageLiteral(resourceName: "receipt2")
         picker.delegate = self
+        
+        if let tesseract = G8Tesseract(language: "eng") {
+            tesseract.delegate = self
+            tesseract.image = photo?.image?.g8_blackAndWhite()
+            tesseract.recognize()
+            textView.text = tesseract.recognizedText
+            print(tesseract.recognizedText)
+        }
+        
+        let regex = textView.text.regex()
+        print(regex)
+        let regex2 = textView.text.regex2()
+        print(regex2)
+        let regex3 = textView.text.regex3()
+        print(regex3)
+        
+        results = results + regex + regex2 + regex3
+        print(results)
+        
+        for item in results {
+            prices = prices + item.getPrice()
+            itemName = itemName + item.getItem()
+            
+        }
+        print(itemName)
+        print(prices)
+    }
+    
+    func progressImageRecognition(for tesseract: G8Tesseract!) {
+        print("Recognition progress \(tesseract.progress)%")
     }
     
     //Camera
@@ -92,10 +129,97 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "billSegue" {
             if let destination = segue.destination as? BillViewController {
-                destination.photo?.image = photo.image
-                destination.username = username
+                destination.itemName = itemName
+                destination.prices = prices
             }
         }
     }
 
 }
+
+extension String {
+    func regex() -> [String]
+    {
+        let pat = "([^\\d\\W]?)+[ ]+([^\\d\\W]?)+[ ]\\w+[ ]\\d+\\‘\\d\\d"
+        
+        do {
+            let string = self as NSString
+            let regex = try NSRegularExpression(pattern: pat, options: .caseInsensitive)
+            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
+                string.substring(with: $0.range).replacingOccurrences(of: "‘", with: ".").lowercased()
+            }
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return[]
+        }
+    }
+    
+    func regex2() -> [String]
+    {
+        let pat = "([^\\d\\W]?)+[ ]\\w+[ ]\\d+\\,\\d\\d"
+        
+        do {
+            let string = self as NSString
+            let regex = try NSRegularExpression(pattern: pat, options: .caseInsensitive)
+            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
+                string.substring(with: $0.range).replacingOccurrences(of: ",", with: ".").lowercased()
+            }
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return[]
+        }
+    }
+    
+    func regex3() -> [String]
+    {
+        let pat = "([^\\d\\W]?)+[ ]\\w+[ ]\\d+\\.\\d\\d"
+        
+        
+        do {
+            let string = self as NSString
+            let regex = try NSRegularExpression(pattern: pat, options: .caseInsensitive)
+            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
+                string.substring(with: $0.range).replacingOccurrences(of: ",", with: ".").lowercased()
+            }
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return[]
+        }
+    }
+    
+    func getPrice() -> [String]
+    {
+        let pat = "\\d+\\.\\d\\d"
+        
+        
+        do {
+            let string = self as NSString
+            let regex = try NSRegularExpression(pattern: pat, options: .caseInsensitive)
+            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
+                string.substring(with: $0.range)
+            }
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return[]
+        }
+    }
+    
+    func getItem() -> [String]
+    {
+        let pat = "([^\\d\\W]?)+[ ]\\w+[ ]"
+        
+        
+        do {
+            let string = self as NSString
+            let regex = try NSRegularExpression(pattern: pat, options: .caseInsensitive)
+            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
+                string.substring(with: $0.range)
+            }
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return[]
+        }
+    }
+    
+}
+

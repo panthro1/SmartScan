@@ -43,23 +43,4 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let ref = Database.database().reference().child("users")
-        if segue.identifier == "loginSegue" {
-            if let destination = segue.destination as? UINavigationController {
-                if let targetController = destination.topViewController as? HomeViewController {
-                    let userID = Auth.auth().currentUser?.uid
-                    ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-                        // Get user value
-                        let value = snapshot.value as? NSDictionary
-                        let username = value?["loginName"] as? String ?? ""
-                        targetController.hi.text = "Hi " + username + "!"
-                    }) { (error) in
-                        print(error.localizedDescription)
-                    }
-                }
-            }
-        }
-    }
 }

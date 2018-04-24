@@ -50,7 +50,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     // Camera action
-    @IBAction func didTap(_ sender: Any) {
+    @IBAction func didTap(_ sender: UITapGestureRecognizer) {
         let alertController = UIAlertController(title: "Media Types", message: "Select the media source for your profile picture", preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
@@ -64,7 +64,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         let photoAlbumAction = UIAlertAction(title: "Saved Photo Album", style: .default) {
             _ in
-            self.library()
+            self.album()
         }
         
         let cameraAction = UIAlertAction(title: "Camera", style: .default) {

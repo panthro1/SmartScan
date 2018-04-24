@@ -16,25 +16,9 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var tableView: UITableView!
     
-    func getUsers() {
-        Database.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
-            print(snapshot)
-            
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                
-                let user = User(loginName: (dictionary["name"] as? NSString)!)
-                self.model.addUser(user: user)
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-            
-        }, withCancel: nil)
-    }
-    
     //table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(model.userList.count)
         return model.userList.count
     }
     
@@ -49,7 +33,6 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-
     }
     
     // MARK: - Navigation

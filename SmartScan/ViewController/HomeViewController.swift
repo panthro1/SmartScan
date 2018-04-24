@@ -27,7 +27,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         let userID = Auth.auth().currentUser?.uid
         ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
@@ -36,6 +38,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.hi.text = "Hi " + username + "!"
         }) { (error) in
             print(error.localizedDescription)
+        }
+    }
+    
+    @IBAction func didTapLogOut(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
         }
     }
     
