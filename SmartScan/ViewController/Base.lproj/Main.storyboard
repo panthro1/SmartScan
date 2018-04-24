@@ -412,6 +412,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="DiwanMishafi" family="Mishafi" pointSize="27"/>
                                 <state key="normal" title="Done"/>
+                                <connections>
+                                    <segue destination="Emz-oU-v3j" kind="show" identifier="backToBill" id="JLt-6g-Q4z"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yv-gW-qqT">
                                 <rect key="frame" x="164" y="82" width="195" height="56"/>
@@ -464,7 +467,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="zkb-wL-M9Z" kind="unwind" identifier="unwindToItem" unwindAction="unwindToItemWithSegue:" id="DNX-b5-Fzo"/>
+                                            <segue destination="EQh-9H-KoJ" kind="presentation" identifier="backToItem" id="0N5-GQ-JRv"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -478,9 +481,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gCK-KF-K7P" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="zkb-wL-M9Z" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7124" y="367.46626686656674"/>
+            <point key="canvasLocation" x="7425" y="143"/>
         </scene>
         <!--Summary View Controller-->
         <scene sceneID="ZZh-ux-Wby">
@@ -581,6 +583,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="0N5-GQ-JRv"/>
+        <segue reference="kfD-Ug-Gj8"/>
         <segue reference="aNc-KH-OtQ"/>
     </inferredMetricsTieBreakers>
 </document>

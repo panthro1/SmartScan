@@ -17,7 +17,8 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var photo: UIImageView!
     let picker = UIImagePickerController()
-    
+    let bill = Bill()
+
     var results : [String] = []
     var prices : [String] = []
     var itemName : [String] = []
@@ -48,10 +49,20 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
         for item in results {
             prices = prices + item.getPrice()
             itemName = itemName + item.getItem()
-            
         }
+    
         print(itemName)
         print(prices)
+
+        for i in 0...results.count - 1 {
+            let item = Item()
+            item.member = []
+            item.name = itemName[i]
+            item.price = prices[i]
+            bill.item.append(item)
+        }
+        
+        print(bill.item.count)
     }
     
     func progressImageRecognition(for tesseract: G8Tesseract!) {
@@ -129,8 +140,7 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "billSegue" {
             if let destination = segue.destination as? BillViewController {
-                destination.itemName = itemName
-                destination.prices = prices
+                destination.bill = bill
             }
         }
     }

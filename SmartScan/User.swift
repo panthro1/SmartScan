@@ -13,6 +13,7 @@ class User: NSObject {
     var loginName: NSString? = ""
     var password: NSString? = ""
     var photo: UIImage = #imageLiteral(resourceName: "blank ")
+    var payment: Decimal? = 0
     
     init(loginName: NSString) {
         self.loginName = loginName

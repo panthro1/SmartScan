@@ -14,10 +14,9 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     @IBOutlet weak var item: UILabel!
     @IBOutlet weak var priceDisplay: UILabel!
-    var itemName: String?
-    var price: String?
-    let model = InnerDatabase()
-    var members: [User] = []
+    var model : InnerDatabase?
+    var currentItem: Item?
+    var bill: Bill?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -25,9 +24,8 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        item.text = itemName!
-        priceDisplay.text = price!
-        print("member count = " + String(members.count))
+        item.text = currentItem?.name
+        priceDisplay.text = currentItem?.price
     }
     
 
@@ -35,16 +33,30 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     //table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.userList.count
+        return (currentItem?.member.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-        cell.textLabel?.text = model.userList[indexPath.row].loginName! as String
+        cell.textLabel?.text = currentItem?.member[indexPath.row].loginName! as! String
         return cell
     }
 
     // MARK: - Navigation
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addMemberSegue" {
+            if let destination = segue.destination as? AddMemberViewController {
+                destination.currentItem = currentItem
+                destination.bill = bill!
+                destination.model = model!
+            }
+        }
+        if segue.identifier == "backToBill" {
+            if let destination = segue.destination as? BillViewController {
+                destination.bill = bill
+                destination.model = model
+            }
+        }
+    }
 
 }
