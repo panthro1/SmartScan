@@ -17,13 +17,12 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     var model = InnerDatabase()
-    var bill : Bill?
+    var bill = Bill()
     var switchStatus : Bool = false
-    @IBOutlet weak var textView: UITextView!
-    
     var results : [String] = []
     var prices : [String] = []
     var itemName : [String] = []
+    @IBOutlet weak var textView: UITextView!
     
     @IBOutlet weak var switchOutlet: UISwitch!
     @IBAction func mySwitch(_ sender: Any) {
@@ -40,7 +39,7 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
                 let loginName = value?["loginName"] as? String ?? ""
                 print(loginName)
                 var isAdded = false
-                    for each in (self.bill?.item)! {
+                for each in (self.bill.item) {
                         for people in each.member {
                             if (people == loginName) {
                                 isAdded = true
@@ -49,7 +48,7 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
                         if (!isAdded) {
                             each.member.append(loginName)
                             for all in self.model.userList {
-                                if (all.loginName as String? == loginName) {
+                                if ((all.loginName! as String) == loginName) {
                                     all.item.append(each)
                                 }
                             }
@@ -60,73 +59,6 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
             }
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        switchOutlet.isOn = switchStatus
-        
-        let rootRef = Database.database().reference()
-        let query = rootRef.child("Users").queryOrdered(byChild: "loginName")
-        query.observe(.value) { (snapshot) in
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                let value = child.value as? NSDictionary
-                let loginName = value?["loginName"] as? String ?? ""
-                let email = value?["email"] as? String ?? ""
-                let user = User(loginName: loginName as NSString, email: email as NSString)
-                var userExist = false
-                for member in self.model.userList {
-                    if member.loginName == user.loginName {
-                        userExist = true
-                    }
-                }
-                if (!userExist) {
-                    self.model.insertUser(user: user)
-                }
-            }
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if let tesseract = G8Tesseract(language: "eng") {
-            tesseract.delegate = self
-            tesseract.image = photo?.image?.g8_blackAndWhite()
-            tesseract.recognize()
-            textView.text = tesseract.recognizedText
-            print(tesseract.recognizedText)
-        }
-        
-        var results = textView.text.regex()
-        print(results)
-        results = clean(items: results)
-        
-        for item in results {
-            prices = prices + item.getPrice()
-            itemName = itemName + item.getItem()
-        }
-        
-        print(itemName)
-        print(prices)
-        
-        if !results.isEmpty {
-            for i in 0...results.count - 1 {
-                let item = Item()
-                item.member = []
-                item.name = itemName[i]
-                item.price = prices[i]
-                bill?.item.append(item)
-            }
-        }
-        
-        print(bill?.item.count)
-    }
-
-//    override func viewDidDisappear(_ animated: Bool) {
-//        bill?.item = []
-//    }
-    
-    @IBAction func unwindToBill(segue: UIStoryboardSegue) {}
     
     func progressImageRecognition(for tesseract: G8Tesseract!) {
         print("Recognition progress \(tesseract.progress)%")
@@ -145,21 +77,88 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
                 var temp : String?
                 temp = each.replace(target: "'", withString:" ")
                 temp = each.replace(target: "‘", withString:" ")
-                trimmedStrings.append((temp?.capitalized)!)
+                trimmedStrings.append(each.capitalized)
             }
         }
         return trimmedStrings
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if (bill.item.isEmpty) {
+            if let tesseract = G8Tesseract(language: "eng") {
+                tesseract.delegate = self
+                tesseract.image = photo?.image?.g8_blackAndWhite()
+                tesseract.recognize()
+                textView.text = tesseract.recognizedText
+                print(tesseract.recognizedText)
+            }
+            
+            var results = textView.text.regex()
+            print(results)
+            results = clean(items: results)
+            
+            for item in results {
+                prices = prices + item.getPrice()
+                itemName = itemName + item.getItem()
+            }
+            
+            print(itemName)
+            print(prices)
+            
+            if !results.isEmpty {
+                for i in 0...results.count - 1 {
+                    let item = Item()
+                    item.member = []
+                    item.name = itemName[i]
+                    item.price = prices[i]
+                    bill.item.append(item)
+                }
+            }
+            
+            print(bill.item.count)
+            
+        }
+        
+        switchOutlet.isOn = switchStatus
+        
+        let rootRef = Database.database().reference()
+        let query = rootRef.child("Users").queryOrdered(byChild: "loginName")
+        query.observe(.value) { (snapshot) in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                let value = child.value as? NSDictionary
+                let loginName = value?["loginName"] as? String ?? ""
+                let email = value?["email"] as? String ?? ""
+                let user = User(loginName: loginName as NSString, email: email as NSString)
+                var userExist = false
+                for member in self.model.userList {
+                    if member.loginName == user.loginName {
+                        userExist = true
+                    }
+                }
+                if (!userExist) {
+                    self.model.userList.append(user)
+                }
+            }
+        }
+    }
+    
+    @IBAction func unwindToBill(segue: UIStoryboardSegue) {}
+    
     //table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bill!.item.count
+        return bill.item.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "billCell", for: indexPath)
-        cell.textLabel?.text = bill?.item[indexPath.row].name
-        cell.detailTextLabel?.text = bill?.item[indexPath.row].price
+        cell.textLabel?.text = bill.item[indexPath.row].name
+        cell.detailTextLabel?.text = bill.item[indexPath.row].price
         return cell
     }
     
@@ -168,33 +167,26 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
         if segue.identifier == "itemSegue" {
             if let destination = segue.destination as? ItemViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    destination.currentItem = bill?.item[indexPath.row]
+                    destination.currentItem = bill.item[indexPath.row]
                     destination.bill = bill
                     destination.model = model
                     destination.switchStatus = switchStatus
-                    destination.photo = photo
                 }
             }
         }
         
         if segue.identifier == "summarySegue" {
             if let destination = segue.destination as? SummaryViewController {
-                print(bill!)
-                destination.bill = bill!
+                destination.bill = bill
                 destination.model = model
                 destination.switchStatus = switchStatus
-                destination.photo = photo
             }
-        }
-        
-        if let destination = segue.destination as? ScannerViewController {
-            destination.bill.item = []
         }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "summarySegue" {
-            for each in (bill?.item)! {
+            for each in (bill.item) {
                 if each.member.isEmpty {
                     let alert  = UIAlertController(title: "Warning", message: "Did not assign \(each.name!)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -207,6 +199,7 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
     }
     
 }
+
 
 extension String {
     func regex() -> [String]
@@ -259,6 +252,7 @@ extension String {
             return[]
         }
     }
+    
 }
 
 extension String {
@@ -290,8 +284,7 @@ extension String {
     func replace(target: String, withString: String) -> String
     {
         return self.replacingOccurrences(of: target, with: withString, options: NSString.CompareOptions.literal, range: nil)
-
+        
     }
     
 }
-

@@ -14,18 +14,28 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
 
     var username: String?
     
-    @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var photo: UIImageView!
     let picker = UIImagePickerController()
-    var bill = Bill()
+    let bill = Bill()
     
     @IBAction func unwindToScanner(segue: UIStoryboardSegue) {}
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        photo.image = #imageLiteral(resourceName: "receipt2")
+        photo.image = #imageLiteral(resourceName: "camera")
         picker.delegate = self
     }
+    
+    @IBAction func logOut(_ sender: Any) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+    }
+    
     
     //Camera
     @IBAction func didTapImage(_ sender: Any) {
@@ -98,18 +108,9 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "billSegue" {
             if let destination = segue.destination as? BillViewController {
-                destination.bill = bill
                 destination.photo = photo
-            }
-        }
-        if segue.identifier == "unwindToMain" {
-                let firebaseAuth = Auth.auth()
-                do {
-                    try firebaseAuth.signOut()
-                } catch let signOutError as NSError {
-                    print ("Error signing out: %@", signOutError)
-                }
-            
+                destination.bill.item = []
+             }
         }
     }
 

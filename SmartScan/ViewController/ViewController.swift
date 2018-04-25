@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var login_button: UIButton!
     @IBOutlet weak var signup_button: UIButton!
     
+    @IBAction func unwindToMain(segue: UIStoryboardSegue) {}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background"))
@@ -34,6 +36,5 @@ class ViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
 
-    @IBAction func unwindToMain(segue: UIStoryboardSegue) {}
 }
 

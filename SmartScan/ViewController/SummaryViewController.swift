@@ -15,11 +15,9 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     var model = InnerDatabase()
     var bill = Bill()
-    var singlePrices : [(String, Float)] = []
     var allUsers : [User] = []
+    var singlePrices : [(String, Float)] = []
     var switchStatus : Bool?
-    var photo: UIImageView?
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,21 +56,6 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    @IBAction func sendEmail(_ sender: Any) {
-        if MFMailComposeViewController.canSendMail() {
-            for all in allUsers {
-                let mail = MFMailComposeViewController()
-                mail.mailComposeDelegate = self
-                mail.setToRecipients(["\(all.email! as String)"])
-                mail.setMessageBody("Please pay \(all.payment)", isHTML: true)
-                present(mail, animated: true)
-            }
-        } else {
-            let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
-            sendMailErrorAlert.show()
-        }
-    }
-    
     //table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var relevantUsers = 0
@@ -93,15 +76,20 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "unwindToScanner" {
-            if let destination = segue.destination as? ScannerViewController {
-                destination.bill.item = []
+    @IBAction func sendEmail(_ sender: Any) {
+        if MFMailComposeViewController.canSendMail() {
+            for all in allUsers {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self
+                mail.setToRecipients(["\(all.email! as String)"])
+                mail.setMessageBody("Please pay \(all.payment)", isHTML: true)
+                present(mail, animated: true)
             }
+        } else {
+            let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+            sendMailErrorAlert.show()
         }
     }
-    
-    //email
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
@@ -114,6 +102,14 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? BillViewController {
+            destination.bill = bill
+            destination.model = model
+            destination.switchStatus = switchStatus!
+        }
     }
 
 }

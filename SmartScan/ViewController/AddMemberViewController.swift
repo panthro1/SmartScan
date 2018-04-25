@@ -16,8 +16,6 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
     var bill = Bill()
     var currentItem : Item?
     var switchStatus: Bool!
-    var photo: UIImageView?
-
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -28,7 +26,7 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath)
-        cell.textLabel?.text = model.userList[indexPath.row].loginName! as! String
+        cell.textLabel?.text = model.userList[indexPath.row].loginName! as String
         return cell
     }
     
@@ -43,35 +41,42 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindToItem" {
             if let destination = segue.destination as? ItemViewController {
-                if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    let member = User(loginName: model.userList[indexPath.row].loginName! as! NSString, email: "")
-                    var alreadyAdded = false
-                    for each in bill.item {
-                        if each.name == currentItem?.name {
-                            if (currentItem?.member.contains(member.loginName as! String))! {
-                                    alreadyAdded = true
-                                    let alert  = UIAlertController(title: "Warning", message: "Already added this person", preferredStyle: .alert)
-                                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                                    self.present(alert, animated: true, completion: nil)
-                            }
-                            if (!alreadyAdded) {
-                                each.member.append(member.loginName! as String)
-                                for each in model.userList {
-                                    if each.loginName == member.loginName {
-                                        each.item.append(currentItem!)
-                                    }
-                                }
-                            }
-                        }
-                    }
                     destination.model = model
                     destination.currentItem = currentItem
                     destination.bill = bill
                     destination.switchStatus = switchStatus
-                    destination.photo = photo
                 }
             }
         }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "unwindToItem" {
+            if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                let member = User(loginName: model.userList[indexPath.row].loginName!, email: "")
+                var alreadyAdded = false
+                for each in bill.item {
+                    if each.name == currentItem?.name {
+                        if (currentItem?.member.contains(member.loginName as! String))! {
+                            alreadyAdded = true
+                            let alert  = UIAlertController(title: "Warning", message: "Already added this person", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                            return false
+                        }
+                        if (!alreadyAdded) {
+                            each.member.append(member.loginName! as String)
+                            for each in model.userList {
+                                if each.loginName == member.loginName {
+                                    each.item.append(currentItem!)
+                                    return true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true
     }
 }
 

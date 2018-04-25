@@ -16,10 +16,8 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var priceDisplay: UILabel!
     var model = InnerDatabase()
     var currentItem: Item?
-    var bill: Bill?
+    var bill = Bill()
     var switchStatus: Bool!
-    var photo: UIImageView?
-
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -36,7 +34,6 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
-    
     @IBAction func unwindToItem(segue: UIStoryboardSegue) {}
     
     //table
@@ -46,7 +43,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-        cell.textLabel?.text = currentItem?.member[indexPath.row]
+        cell.textLabel?.text = currentItem?.member[indexPath.row] as! String
         return cell
     }
 
@@ -55,15 +52,14 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if segue.identifier == "addMemberSegue" {
             if let destination = segue.destination as? AddMemberViewController {
                 destination.currentItem = currentItem
-                destination.bill = bill!
+                destination.bill = bill
                 destination.model = model
                 destination.switchStatus = switchStatus
-                destination.photo = photo
             }
         }
         if segue.identifier == "unwindToBill" {
             if let destination = segue.destination as? BillViewController {
-                for each in (bill?.item)! {
+                for each in (bill.item) {
                     print(each.name!)
                     print(each.price!)
                     print(each.member)
@@ -74,7 +70,6 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 destination.bill = bill
                 destination.model = model
                 destination.switchStatus = switchStatus
-                destination.photo = photo
             }
         }
     }
