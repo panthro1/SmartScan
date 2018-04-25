@@ -42,7 +42,7 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
         if segue.identifier == "unwindToItem" {
             if let destination = segue.destination as? ItemViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    let member = User(loginName: model.userList[indexPath.row].loginName! as! NSString)
+                    let member = User(loginName: model.userList[indexPath.row].loginName! as! NSString, email: "")
                     var alreadyAdded = false
                     for each in bill.item {
                         if each.name == currentItem?.name {

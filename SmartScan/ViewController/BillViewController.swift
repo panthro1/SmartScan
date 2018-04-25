@@ -43,6 +43,11 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
                         }
                         if (!isAdded) {
                             each.member.append(loginName)
+                            for all in self.model.userList {
+                                if (all.loginName as String? == loginName) {
+                                    all.item.append(each)
+                                }
+                            }
                     }
                 }
             }) { (error) in
@@ -63,8 +68,8 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
             for child in snapshot.children.allObjects as! [DataSnapshot] {
                 let value = child.value as? NSDictionary
                 let loginName = value?["loginName"] as? String ?? ""
-                print(loginName)
-                let user = User(loginName: loginName as NSString)
+                let email = value?["email"] as? String ?? ""
+                let user = User(loginName: loginName as NSString, email: email as NSString)
                 var userExist = false
                 for member in self.model.userList {
                     if member.loginName == user.loginName {
@@ -74,7 +79,6 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
                 if (!userExist) {
                     self.model.insertUser(user: user)
                 }
-                print(String(describing: self.model.userList.count))
             }
         }
     }
