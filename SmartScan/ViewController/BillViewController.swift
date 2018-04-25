@@ -22,11 +22,32 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
     
     @IBOutlet weak var switchOutlet: UISwitch!
     @IBAction func mySwitch(_ sender: Any) {
-        if (switchOutlet.isOn) {
-            switchOutlet.isOn = false
+        if (!switchOutlet.isOn) {
+            switchStatus = false
         }
         else {
-            switchOutlet.isOn = true
+            switchStatus  = true
+            let userID = Auth.auth().currentUser?.uid
+            let ref = Database.database().reference()
+            ref.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                let loginName = value?["loginName"] as? String ?? ""
+                print(loginName)
+                var isAdded = false
+                    for each in (self.bill?.item)! {
+                        for people in each.member {
+                            if (people == loginName) {
+                                isAdded = true
+                            }
+                        }
+                        if (!isAdded) {
+                            each.member.append(loginName)
+                    }
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -56,31 +77,9 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
                 print(String(describing: self.model.userList.count))
             }
         }
-        
-        let userID = Auth.auth().currentUser?.uid
-        rootRef.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let loginName = value?["loginName"] as? String ?? ""
-            print(loginName)
-            if (self.switchStatus) {
-                var isAdded = false
-                for each in (self.bill?.item)! {
-                    for people in each.member {
-                        if (String(describing: people.loginName) == loginName) {
-                            isAdded = true
-                        }
-                    }
-                    if (!isAdded) {
-                        each.member.append(User(loginName: loginName as NSString))
-                    }
-                }
-            }
-        }) { (error) in
-            print(error.localizedDescription)
-        }
     }
-        
+    
+    @IBAction func unwindToBill(segue: UIStoryboardSegue) {}
     
     //table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,7 +100,6 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                     destination.currentItem = bill?.item[indexPath.row]
                     destination.bill = bill
-                    print(String(describing: model.userList.count))
                     destination.model = model
                     destination.switchStatus = switchStatus
                 }
@@ -110,6 +108,7 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
         
         if segue.identifier == "summarySegue" {
             if let destination = segue.destination as? SummaryViewController {
+                print(bill!)
                 destination.bill = bill!
                 destination.model = model
                 destination.switchStatus = switchStatus

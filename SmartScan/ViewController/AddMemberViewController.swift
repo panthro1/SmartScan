@@ -39,23 +39,21 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "backToItem" {
+        if segue.identifier == "unwindToItem" {
             if let destination = segue.destination as? ItemViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                     let member = User(loginName: model.userList[indexPath.row].loginName! as! NSString)
                     var alreadyAdded = false
                     for each in bill.item {
                         if each.name == currentItem?.name {
-                            for people in (currentItem?.member)! {
-                                if people.loginName == member.loginName {
+                            if (currentItem?.member.contains(member.loginName as! String))! {
                                     alreadyAdded = true
                                     let alert  = UIAlertController(title: "Warning", message: "Already added this person", preferredStyle: .alert)
                                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                                     self.present(alert, animated: true, completion: nil)
-                                }
                             }
                             if (!alreadyAdded) {
-                                each.member.append(member)
+                                each.member.append(member.loginName! as String)
                                 for each in model.userList {
                                     if each.loginName == member.loginName {
                                         each.item.append(currentItem!)
@@ -73,3 +71,4 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
 }
+

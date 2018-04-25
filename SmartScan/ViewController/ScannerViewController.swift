@@ -36,8 +36,9 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
             print(tesseract.recognizedText)
         }
         
-        let results = textView.text.regex()
+        var results = textView.text.regex()
         print(results)
+        results = clean(items: results)
         
         for item in results {
             prices = prices + item.getPrice()
@@ -60,6 +61,20 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
     
     func progressImageRecognition(for tesseract: G8Tesseract!) {
         print("Recognition progress \(tesseract.progress)%")
+    }
+    
+    func clean(items: [String]) -> [String] {
+        var trimmedStrings : [String] = []
+        for each in items {
+                if each[each.startIndex] == " " {
+                    let trimmedString = each.substring(fromIndex: 1)
+                    trimmedStrings.append(trimmedString.capitalized)
+                }
+                else {
+                    trimmedStrings.append(each.capitalized)
+                }
+        }
+        return trimmedStrings
     }
     
     //Camera
@@ -160,7 +175,7 @@ extension String {
     
     func getPrice() -> [String]
     {
-        let pat = "\\d+\\.\\d\\d"
+        let pat = "\\d+(\\.|,|‘)\\d\\d"
         
         
         do {
@@ -177,7 +192,7 @@ extension String {
     
     func getItem() -> [String]
     {
-        let pat = "([^\\d\\W]?)+[ ]\\w+[ ]"
+        let pat = "(\\w+[A-Z][a-z]?)[ ]?(\\w+)[ ]"
         
         
         do {
@@ -194,3 +209,30 @@ extension String {
     
 }
 
+extension String {
+    
+    var length: Int {
+        return self.characters.count
+    }
+    
+    subscript (i: Int) -> String {
+        return self[i ..< i + 1]
+    }
+    
+    func substring(fromIndex: Int) -> String {
+        return self[min(fromIndex, length) ..< length]
+    }
+    
+    func substring(toIndex: Int) -> String {
+        return self[0 ..< max(0, toIndex)]
+    }
+    
+    subscript (r: Range<Int>) -> String {
+        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
+                                            upper: min(length, max(0, r.upperBound))))
+        let start = index(startIndex, offsetBy: range.lowerBound)
+        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
+        return String(self[start ..< end])
+    }
+    
+}

@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        let navigationBarAppearace = UINavigationBar.appearance()
+        navigationBarAppearace.barTintColor = UIColor.black
+        navigationBarAppearace.tintColor = UIColor.white
         return true
     }
 
@@ -42,7 +45,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
+
+extension UINavigationItem{
+    
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let backItem = UIBarButtonItem()
+        
+        if let font = UIFont(name: "Marker Felt", size: 22){
+            backItem.setTitleTextAttributes([NSAttributedStringKey.font:font], for: .normal)
+        }else{
+            
+            print("Font Not available")
+        }
+        self.backBarButtonItem = backItem
+    }
+}
+
 

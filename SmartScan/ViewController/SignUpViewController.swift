@@ -27,7 +27,8 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     let picker = UIImagePickerController()
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background"))
         photo.image = #imageLiteral(resourceName: "blank ")
         picker.delegate = self
         self.photo.layer.cornerRadius = self.photo.frame.size.width / 2

@@ -21,7 +21,16 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         calculate()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        for all in model.userList {
+            all.payment = 0
+        }
     }
     
     func calculate() {

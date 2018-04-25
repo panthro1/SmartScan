@@ -30,8 +30,10 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         item.text = currentItem?.name
         priceDisplay.text = currentItem?.price
     }
-    
 
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
     @IBAction func unwindToItem(segue: UIStoryboardSegue) {}
     
     //table
@@ -41,7 +43,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-        cell.textLabel?.text = currentItem?.member[indexPath.row].loginName! as! String
+        cell.textLabel?.text = currentItem?.member[indexPath.row] as! String
         return cell
     }
 
@@ -55,7 +57,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 destination.switchStatus = switchStatus
             }
         }
-        if segue.identifier == "backToBill" {
+        if segue.identifier == "unwindToBill" {
             if let destination = segue.destination as? BillViewController {
                 for each in (bill?.item)! {
                     print(each.name!)
@@ -67,14 +69,8 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
                 destination.bill = bill
                 destination.model = model
-//                if (switchStatus) {
-//                    destination.mySwitch.isOn = true;
-//                }
-//                else {
-//                    destination.mySwitch.isOn = false
-//                }
+                destination.switchStatus = switchStatus
             }
         }
     }
-
 }
