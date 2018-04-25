@@ -16,6 +16,8 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
     var bill = Bill()
     var currentItem : Item?
     var switchStatus: Bool!
+    var photo: UIImageView?
+
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -66,6 +68,7 @@ class AddMemberViewController: UIViewController, UITableViewDelegate, UITableVie
                     destination.currentItem = currentItem
                     destination.bill = bill
                     destination.switchStatus = switchStatus
+                    destination.photo = photo
                 }
             }
         }

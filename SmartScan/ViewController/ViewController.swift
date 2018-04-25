@@ -34,5 +34,6 @@ class ViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
 
+    @IBAction func unwindToMain(segue: UIStoryboardSegue) {}
 }
 

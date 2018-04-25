@@ -17,64 +17,14 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var photo: UIImageView!
     let picker = UIImagePickerController()
-    let bill = Bill()
-
-    var results : [String] = []
-    var prices : [String] = []
-    var itemName : [String] = []
+    var bill = Bill()
+    
+    @IBAction func unwindToScanner(segue: UIStoryboardSegue) {}
     
     override func viewDidLoad() {
         super.viewDidLoad()
         photo.image = #imageLiteral(resourceName: "receipt2")
         picker.delegate = self
-        
-        if let tesseract = G8Tesseract(language: "eng") {
-            tesseract.delegate = self
-            tesseract.image = photo?.image?.g8_blackAndWhite()
-            tesseract.recognize()
-            textView.text = tesseract.recognizedText
-            print(tesseract.recognizedText)
-        }
-        
-        var results = textView.text.regex()
-        print(results)
-        results = clean(items: results)
-        
-        for item in results {
-            prices = prices + item.getPrice()
-            itemName = itemName + item.getItem()
-        }
-    
-        print(itemName)
-        print(prices)
-
-        for i in 0...results.count - 1 {
-            let item = Item()
-            item.member = []
-            item.name = itemName[i]
-            item.price = prices[i]
-            bill.item.append(item)
-        }
-        
-        print(bill.item.count)
-    }
-    
-    func progressImageRecognition(for tesseract: G8Tesseract!) {
-        print("Recognition progress \(tesseract.progress)%")
-    }
-    
-    func clean(items: [String]) -> [String] {
-        var trimmedStrings : [String] = []
-        for each in items {
-                if each[each.startIndex] == " " {
-                    let trimmedString = each.substring(fromIndex: 1)
-                    trimmedStrings.append(trimmedString.capitalized)
-                }
-                else {
-                    trimmedStrings.append(each.capitalized)
-                }
-        }
-        return trimmedStrings
     }
     
     //Camera
@@ -149,90 +99,19 @@ class ScannerViewController: UIViewController,UIImagePickerControllerDelegate, U
         if segue.identifier == "billSegue" {
             if let destination = segue.destination as? BillViewController {
                 destination.bill = bill
+                destination.photo = photo
             }
+        }
+        if segue.identifier == "unwindToMain" {
+                let firebaseAuth = Auth.auth()
+                do {
+                    try firebaseAuth.signOut()
+                } catch let signOutError as NSError {
+                    print ("Error signing out: %@", signOutError)
+                }
+            
         }
     }
 
 }
 
-extension String {
-    func regex() -> [String]
-    {
-        let pat = "([^\\d\\W]?)+[ ]\\w+[ ]\\d+(\\.|,|‘)\\d\\d"
-        
-        
-        do {
-            let string = self as NSString
-            let regex = try NSRegularExpression(pattern: pat, options: .caseInsensitive)
-            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
-                string.substring(with: $0.range).replacingOccurrences(of: ",", with: ".").lowercased()
-            }
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-            return[]
-        }
-    }
-    
-    func getPrice() -> [String]
-    {
-        let pat = "\\d+(\\.|,|‘)\\d\\d"
-        
-        
-        do {
-            let string = self as NSString
-            let regex = try NSRegularExpression(pattern: pat, options: .caseInsensitive)
-            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
-                string.substring(with: $0.range)
-            }
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-            return[]
-        }
-    }
-    
-    func getItem() -> [String]
-    {
-        let pat = "(\\w+[A-Z][a-z]?)[ ]?(\\w+)[ ]"
-        
-        
-        do {
-            let string = self as NSString
-            let regex = try NSRegularExpression(pattern: pat, options: .caseInsensitive)
-            return regex.matches(in: self, options: [], range: NSRange(location: 0, length: string.length)).map {
-                string.substring(with: $0.range)
-            }
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-            return[]
-        }
-    }
-    
-}
-
-extension String {
-    
-    var length: Int {
-        return self.characters.count
-    }
-    
-    subscript (i: Int) -> String {
-        return self[i ..< i + 1]
-    }
-    
-    func substring(fromIndex: Int) -> String {
-        return self[min(fromIndex, length) ..< length]
-    }
-    
-    func substring(toIndex: Int) -> String {
-        return self[0 ..< max(0, toIndex)]
-    }
-    
-    subscript (r: Range<Int>) -> String {
-        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
-                                            upper: min(length, max(0, r.upperBound))))
-        let start = index(startIndex, offsetBy: range.lowerBound)
-        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
-        return String(self[start ..< end])
-    }
-    
-}

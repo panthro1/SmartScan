@@ -18,6 +18,8 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var currentItem: Item?
     var bill: Bill?
     var switchStatus: Bool!
+    var photo: UIImageView?
+
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -34,6 +36,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
+    
     @IBAction func unwindToItem(segue: UIStoryboardSegue) {}
     
     //table
@@ -43,7 +46,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-        cell.textLabel?.text = currentItem?.member[indexPath.row] as! String
+        cell.textLabel?.text = currentItem?.member[indexPath.row]
         return cell
     }
 
@@ -55,6 +58,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 destination.bill = bill!
                 destination.model = model
                 destination.switchStatus = switchStatus
+                destination.photo = photo
             }
         }
         if segue.identifier == "unwindToBill" {
@@ -70,6 +74,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 destination.bill = bill
                 destination.model = model
                 destination.switchStatus = switchStatus
+                destination.photo = photo
             }
         }
     }

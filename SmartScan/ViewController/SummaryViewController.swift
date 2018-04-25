@@ -8,14 +8,18 @@
 
 import UIKit
 import Foundation
+import MessageUI
 
-class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var model = InnerDatabase()
     var bill = Bill()
     var singlePrices : [(String, Float)] = []
+    var allUsers : [User] = []
     var switchStatus : Bool?
+    var photo: UIImageView?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,17 +58,62 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    @IBAction func sendEmail(_ sender: Any) {
+        if MFMailComposeViewController.canSendMail() {
+            for all in allUsers {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self
+                mail.setToRecipients(["\(all.email! as String)"])
+                mail.setMessageBody("Please pay \(all.payment)", isHTML: true)
+                present(mail, animated: true)
+            }
+        } else {
+            let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+            sendMailErrorAlert.show()
+        }
+    }
+    
     //table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.userList.count
+        var relevantUsers = 0
+        for all in model.userList {
+            if !all.item.isEmpty {
+                relevantUsers += 1
+                allUsers.append(all)
+            }
+        }
+        return relevantUsers
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "summaryCell", for: indexPath)
-        cell.textLabel?.text = (model.userList[indexPath.row].loginName) as String?
-        let s = NSString(format: "%.2f", model.userList[indexPath.row].payment)
+        cell.textLabel?.text = allUsers[indexPath.row].loginName as String?
+        let s = NSString(format: "%.2f", allUsers[indexPath.row].payment)
         cell.detailTextLabel?.text = s as String
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "unwindToScanner" {
+            if let destination = segue.destination as? ScannerViewController {
+                destination.bill.item = []
+            }
+        }
+    }
+    
+    //email
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "unwindToScanner" {
+            if !MFMailComposeViewController.canSendMail() {
+                return false
+            }
+        }
+        return true
     }
 
 }
