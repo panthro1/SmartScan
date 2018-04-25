@@ -166,6 +166,28 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            let itemToRemove = bill.item[indexPath.row]
+            bill.item.remove(at: indexPath.row)
+            
+            // remove item in user
+            for all in model.userList {
+                if all.item.contains(itemToRemove) {
+                    if let remove = all.item.index(of: itemToRemove) {
+                        all.item.remove(at: remove)
+                    }
+                }
+            }
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "itemSegue" {

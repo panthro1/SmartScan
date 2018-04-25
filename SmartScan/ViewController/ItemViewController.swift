@@ -43,8 +43,37 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-        cell.textLabel?.text = currentItem?.member[indexPath.row] as! String
+        cell.textLabel?.text = currentItem?.member[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            let itemToRemove = currentItem?.member[indexPath.row]
+            currentItem?.member.remove(at: indexPath.row)
+            for all in bill.item {
+                if all == currentItem {
+                    if let itemToRemoveIndex = all.member.index(of: itemToRemove!) {
+                        all.member.remove(at: itemToRemoveIndex)
+                    }
+                }
+            }
+            
+            // remove item in user
+            for all in model.userList {
+                if (all.loginName! as String) == itemToRemove {
+                    if let itemToRemove = all.item.index(of: currentItem!) {
+                        all.item.remove(at: itemToRemove)
+                    }
+                }
+            }
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
 
     // MARK: - Navigation
