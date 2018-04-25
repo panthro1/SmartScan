@@ -22,6 +22,8 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
     var results : [String] = []
     var prices : [String] = []
     var itemName : [String] = []
+    var newName : String?
+    var newPrice : String?
     @IBOutlet weak var textView: UITextView!
     
     @IBOutlet weak var switchOutlet: UISwitch!
@@ -146,10 +148,12 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
                 }
             }
         }
+        tableView.reloadData()
     }
     
     @IBAction func unwindToBill(segue: UIStoryboardSegue) {}
-    
+    @IBAction func unwindToBillFromAdd(segue: UIStoryboardSegue) {}
+
     //table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bill.item.count
@@ -175,6 +179,14 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
             }
         }
         
+        if segue.identifier == "itemHistorySegue" {
+            if let destination = segue.destination as? ItemHistoryViewController {
+                destination.bill = bill
+                destination.model = model
+                destination.switchStatus = switchStatus
+            }
+        }
+        
         if segue.identifier == "summarySegue" {
             if let destination = segue.destination as? SummaryViewController {
                 destination.bill = bill
@@ -197,7 +209,6 @@ class BillViewController: UIViewController, G8TesseractDelegate, UITableViewData
         }
         return true
     }
-    
 }
 
 

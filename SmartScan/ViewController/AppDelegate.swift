@@ -47,21 +47,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-//extension UINavigationItem{
-//    
-//    override open func awakeFromNib() {
-//        super.awakeFromNib()
-//        
-//        let backItem = UIBarButtonItem()
-//        
-//        if let font = UIFont(name: "Marker Felt", size: 22){
-//            backItem.setTitleTextAttributes([NSAttributedStringKey.font:font], for: .normal)
-//        }else{
-//            
-//            print("Font Not available")
-//        }
-//        self.backBarButtonItem = backItem
-//    }
-//}
-
 

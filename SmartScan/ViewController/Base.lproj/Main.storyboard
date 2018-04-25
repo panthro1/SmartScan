@@ -269,7 +269,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HGQ-De-dS8">
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="HGQ-De-dS8">
                                 <rect key="frame" x="34" y="102" width="307" height="454"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
@@ -399,6 +399,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="gQJ-qH-CeL"/>
                     </view>
+                    <navigationItem key="navigationItem" id="NfZ-nD-Z7f">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vii-Eg-AI9">
+                            <connections>
+                                <segue destination="K2n-2f-2M7" kind="show" identifier="itemHistorySegue" id="JN9-Ke-qGC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="switchOutlet" destination="MWf-hj-4le" id="JQo-4I-Zzp"/>
                         <outlet property="tableView" destination="pyj-fp-3ja" id="tHa-AT-Bel"/>
@@ -407,7 +414,60 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WUH-jj-uoa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5044" y="268.51574212893553"/>
+            <point key="canvasLocation" x="4865" y="191"/>
+        </scene>
+        <!--Item History View Controller-->
+        <scene sceneID="OdL-Ca-gi0">
+            <objects>
+                <viewController id="K2n-2f-2M7" customClass="ItemHistoryViewController" customModule="SmartScan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ExE-Bk-8oP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add More Item!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SG3-l5-HCY">
+                                <rect key="frame" x="75" y="107" width="225" height="186"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Baskerville-Bold" family="Baskerville" pointSize="42"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lmb-Zn-RCH">
+                                <rect key="frame" x="75" y="345" width="225" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SAy-sD-FNc">
+                                <rect key="frame" x="75" y="408" width="225" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQV-sq-nZb">
+                                <rect key="frame" x="163" y="510" width="50" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="25"/>
+                                <state key="normal" title="Add !">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="PbH-1Y-JJT" kind="unwind" identifier="unwindToBillFromAdd" unwindAction="unwindToBillFromAddWithSegue:" id="4es-RC-xGh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="1An-qj-TAa"/>
+                    </view>
+                    <connections>
+                        <outlet property="itemName" destination="Lmb-Zn-RCH" id="qF2-mi-gdm"/>
+                        <outlet property="itemPrice" destination="SAy-sD-FNc" id="Rpz-lW-0EQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CCR-VX-Sxf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="PbH-1Y-JJT" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="5576.8000000000002" y="-446.62668665667172"/>
         </scene>
         <!--Item View Controller-->
         <scene sceneID="65V-bI-yPQ">
@@ -650,8 +710,9 @@
     </scenes>
     <resources>
         <image name="blank " width="720" height="720"/>
+        <image name="camera" width="560" height="560"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cMA-vz-K4D"/>
+        <segue reference="aNc-KH-OtQ"/>
     </inferredMetricsTieBreakers>
 </document>
